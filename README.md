@@ -10,9 +10,16 @@
 ### Setup
 
 1. Run `yarn install`
-1. Run the `docker-compose up -d` on the root folder.
-1. Then `cd packages/db`.
-1. Then `npx prisma db seed`
+2. Run the `docker-compose up -d` on the root folder.
+3. Run `docker-compose exec mongo mongo --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]});"`
+4. Then `cd packages/db`.
+5. Please check the video regarding the DB setup.
+We need to add the DB manually, add `edamama` as schema name, then add 3 collections:
+- users
+- products
+- usercarts
+
+6. Then `npx prisma db seed`
 
 ### Run the backend
 
