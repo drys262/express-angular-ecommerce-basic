@@ -1,0 +1,39 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Search here"
+      (keyup)="onChangeSearch($event)"
+      [value]="searchText"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="search($event)">
+    Search
+  </button>
+</form>
+<h2>
+  <a routerLink="/cart" routerLinkActive="active" ariaCurrentWhenActive="page">
+    Cart</a
+  >
+</h2>
+<!-- Cards with media area -->
+<mat-card *ngFor="let product of products; let i = index" class="example-card">
+  <mat-card-title-group>
+    <mat-card-title
+      ><a
+        routerLink="/product/{{ product.id }}"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+      >
+        {{ product.name }}</a
+      ></mat-card-title
+    >
+    <mat-card-subtitle>Price: ${{ product.price }}</mat-card-subtitle>
+    <mat-card-subtitle>SKU: {{ product.sku }}</mat-card-subtitle>
+    <img mat-card-sm-image src="https://picsum.photos/200/300" />
+  </mat-card-title-group>
+  <button mat-raised-button color="primary" (click)="addToCart(product)">
+    Add to cart
+  </button>
+</mat-card>

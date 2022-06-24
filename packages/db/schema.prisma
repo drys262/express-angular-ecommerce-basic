@@ -1,0 +1,45 @@
+datasource db {
+        url      = env("MONGODBCONSTRING")
+        provider = "mongodb"
+}
+
+generator client {
+        provider = "prisma-client-js"
+}
+
+enum CartStatus {
+        ACTIVE
+        PURCHASED
+        DISABLED
+}
+
+model User {
+        id    String     @id @default(auto()) @map("_id") @db.ObjectId
+        name  String
+        email String
+        carts UserCart[]
+
+        @@map("users")
+}
+
+model Product {
+        id       String     @id @default(auto()) @map("_id") @db.ObjectId
+        name     String
+        sku      String
+        price    Int
+        UserCart UserCart[]
+
+        @@map("products")
+}
+
+model UserCart {
+        id        String     @id @default(auto()) @map("_id") @db.ObjectId
+        userId    String
+        user      User       @relation(fields: [userId], references: [id])
+        productId String
+        product   Product    @relation(fields: [productId], references: [id])
+        quantity  Int
+        status    CartStatus @default(ACTIVE)
+
+        @@map("usercarts")
+}
